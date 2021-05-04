@@ -1,12 +1,19 @@
 package com.imager.core.config;
 
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
+import javax.sql.DataSource;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-public class WebConfig {
+public class ApplicationConfig {
+
+  @Value("${spring.datasource.url}")
+  private String dbUrl;
 
   @Bean
   public WebMvcConfigurer corsConfigurer() {
@@ -16,6 +23,13 @@ public class WebConfig {
         registry.addMapping("/**").allowedMethods("POST");
       }
     };
+  }
+
+  @Bean
+  public DataSource dataSource(){
+    HikariConfig config = new HikariConfig();
+    config.setJdbcUrl(dbUrl);
+    return new HikariDataSource(config);
   }
 
 }
