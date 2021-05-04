@@ -63,7 +63,7 @@ public class ImageUtils {
   public Image resize(Mat mat, int heigth, int width){
 
     Mat dst = new Mat();
-    Imgproc.resize(mat, dst, new Size(500, 500));
+    Imgproc.resize(mat, dst, new Size(width, heigth));
 
     return matToImage(dst);
   }
