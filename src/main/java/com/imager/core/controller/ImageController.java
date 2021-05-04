@@ -5,6 +5,7 @@ import com.imager.core.api.model.ResizeResponse;
 import com.imager.core.model.ImageModel;
 import com.imager.core.service.ImageService;
 import com.imager.core.utils.ImageUtils;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.nio.file.Files;
 import javax.ws.rs.core.MediaType;
@@ -48,12 +49,13 @@ public class ImageController {
   }
 
 
-  @GetMapping(path = "/{id}",produces = MediaType.APPLICATION_OCTET_STREAM)
-  public ResponseEntity<Byte[]> getImage(@PathVariable Long id) throws Exception{
+  @GetMapping(value = "/{id}",produces = MediaType.APPLICATION_OCTET_STREAM)
+  public ResponseEntity<byte[]> getImage(@PathVariable Long id) throws Exception{
 
     ImageModel imageModel= imageService.findById(id);
-    Byte[] data = imageModel.getData();
-    return new ResponseEntity<Byte[]>(data, HttpStatus.OK);
+    byte[] data = ArrayUtils.toPrimitive(imageModel.getData());
+
+    return new ResponseEntity<byte[]>(data, HttpStatus.OK);
   }
 
 }
