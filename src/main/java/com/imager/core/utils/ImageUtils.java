@@ -44,13 +44,13 @@ public class ImageUtils {
   }
 
   // Convert Image to base64 very slow to communicate with this technique
-  public String toBase64(Image image) throws Exception{
+  public String toBase64(Image image, String imageType) throws Exception{
 
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
     try{
 
-      ImageIO.write((BufferedImage) image,"JPG", outputStream);
+      ImageIO.write((BufferedImage) image,imageType, outputStream);
 
     }
     catch (Exception e){
@@ -61,10 +61,8 @@ public class ImageUtils {
   }
 
   public Image resize(Mat mat, int heigth, int width){
-
     Mat dst = new Mat();
     Imgproc.resize(mat, dst, new Size(width, heigth));
-
     return matToImage(dst);
   }
 
@@ -73,10 +71,10 @@ public class ImageUtils {
     return  HighGui.toBufferedImage(mat);
   }
 
-  public Mat imageToMat(BufferedImage image) throws  Exception{
+  public Mat imageToMat(BufferedImage image, String imageType) throws  Exception{
 
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-    ImageIO.write(image, "JPG", outputStream);
+    ImageIO.write(image, imageType, outputStream);
     outputStream.flush();
     return  Imgcodecs.imdecode(new MatOfByte(outputStream.toByteArray()),
         Imgcodecs.CV_LOAD_IMAGE_UNCHANGED);

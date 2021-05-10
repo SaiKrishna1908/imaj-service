@@ -20,7 +20,11 @@ public class ImageServiceImpl implements ImageService{
   private final ImageUtils imageUtils;
   private final ImageRepository imageRepository;
   @Override
-  public ImageModel resizeImage(Byte[] data, Integer height, Integer width, String name)  {
+  public ImageModel resizeImage(Byte[] data, Integer height, Integer width, String name
+  , String imageType )  {
+
+    if(imageType == null)
+       imageType = "JPG";
 
     ByteArrayOutputStream outputStream = null;
 
@@ -36,14 +40,14 @@ public class ImageServiceImpl implements ImageService{
       BufferedImage image = ImageIO.read(inputStream);
 
       // Create Mat object from bytes
-      Mat mat = imageUtils.imageToMat(image);
+      Mat mat = imageUtils.imageToMat(image, imageType);
 
       // Resize Image
       Image resizedImageModel = imageUtils.resize(mat, height,width);
 
       // Convert Image to bytes
       outputStream = new ByteArrayOutputStream();
-      ImageIO.write((BufferedImage) resizedImageModel, "JPG", outputStream);
+      ImageIO.write((BufferedImage) resizedImageModel, imageType, outputStream);
 
 
 

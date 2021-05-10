@@ -29,6 +29,7 @@ public class ImageController {
   private final ImageUtils imageUtils;
   private final ImageService imageService;
 
+  // TODO: pass file type in request
 
   @PostMapping
   public ResponseEntity<ResizeResponse> uploadImage(@RequestParam("file") MultipartFile file,
@@ -39,7 +40,7 @@ public class ImageController {
     Byte[] data = ArrayUtils.toObject(file.getBytes());
 
     ImageModel resizedData = imageService.resizeImage(data,
-        height, width, file.getOriginalFilename());
+        height, width, file.getOriginalFilename(), null);
 
     ResizeResponse response = new ResizeResponse();
     response.setFileName(file.getOriginalFilename());
