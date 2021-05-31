@@ -27,8 +27,7 @@ public class CoreApplication {
   public void initDB() throws SQLException {
 
     Statement stmt = dataSource.getConnection().createStatement();
-    stmt.executeUpdate("CREATE TABLE IF NOT EXISTS imagemodel(id bigserail not null, filename varchar(255), data bytea, primary key (id))");
-//    ResultSet rs =  stmt.executeQuery()
+    stmt.executeUpdate("CREATE TABLE IF NOT EXISTS imagemodel(id bigserial not null, filename varchar(255), data bytea, primary key (id))");
   }
 
 }
