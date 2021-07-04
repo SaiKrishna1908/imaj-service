@@ -33,14 +33,17 @@ public class ImageController {
 
   @PostMapping
   public ResponseEntity<ResizeResponse> uploadImage(@RequestParam("file") MultipartFile file,
-      @RequestParam("height") Integer height, @RequestParam("width") Integer width) throws
+      @RequestParam("height") Integer height, @RequestParam("width") Integer width,
+      @RequestParam("imageType") String imageType) throws
       Exception {
 
     // Convert Multipart File into bytes
     Byte[] data = ArrayUtils.toObject(file.getBytes());
 
     ImageModel resizedData = imageService.resizeImage(data,
-        height, width, file.getOriginalFilename(), null);
+        height, width, file.getOriginalFilename(), imageType);
+    
+    System.out.println(resizedData.getId());
 
     ResizeResponse response = new ResizeResponse();
     response.setFileName(file.getOriginalFilename());
