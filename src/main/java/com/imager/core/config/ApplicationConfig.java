@@ -11,9 +11,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class ApplicationConfig {
-//
-//  @Value("${spring.datasource.url}")
-//  private String dbUrl;
+
 
   @Bean
   public WebMvcConfigurer corsConfigurer() {
@@ -26,11 +24,6 @@ public class ApplicationConfig {
     };
   }
 
-//  @Bean
-//  public DataSource dataSource(){
-//    HikariConfig config = new HikariConfig();
-//    config.setJdbcUrl(dbUrl);
-//    return new HikariDataSource(config);
-//  }
+
 
 }
