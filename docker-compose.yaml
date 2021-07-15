@@ -15,3 +15,5 @@ services:
       dockerfile: Dockerfile
     depends_on:
       - images_db
+    ports:
+      - 8080:8080
