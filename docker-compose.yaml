@@ -1,0 +1,17 @@
+version: "3.4"
+
+services:
+  images_db:
+    container_name: images_db
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: temp
+
+  application:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    depends_on:
+      - images_db
