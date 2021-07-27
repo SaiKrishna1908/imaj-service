@@ -16,4 +16,4 @@ services:
     depends_on:
       - images_db
     ports:
-      - 80:8080
+      - 443:8080
