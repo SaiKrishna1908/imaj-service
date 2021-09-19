@@ -30,20 +30,17 @@ public class ImageController {
   private final ImageService imageService;
 
   // TODO: pass file type in request
-
   @PostMapping
   public ResponseEntity<ResizeResponse> uploadImage(@RequestParam("file") MultipartFile file,
       @RequestParam("height") Integer height, @RequestParam("width") Integer width,
       @RequestParam("imageType") String imageType) throws
       Exception {
 
-    // Convert Multipart File into bytes
+    
     Byte[] data = ArrayUtils.toObject(file.getBytes());
 
     ImageModel resizedData = imageService.resizeImage(data,
-        height, width, file.getOriginalFilename(), imageType);
-    
-    System.out.println(resizedData.getId());
+        height, width, file.getOriginalFilename(), imageType);        
 
     ResizeResponse response = new ResizeResponse();
     response.setFileName(file.getOriginalFilename());
@@ -58,7 +55,7 @@ public class ImageController {
 
     ImageModel imageModel= imageService.findById(id);
     byte[] data = ArrayUtils.toPrimitive(imageModel.getData());
-
+    
     return new ResponseEntity<byte[]>(data, HttpStatus.OK);
   }
 

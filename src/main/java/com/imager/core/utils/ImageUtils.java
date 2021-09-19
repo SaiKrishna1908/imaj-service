@@ -2,30 +2,14 @@ package com.imager.core.utils;
 
 import java.awt.Image;
 import java.awt.image.BufferedImage;
-import java.awt.image.DataBufferByte;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.Base64;
 import javax.imageio.ImageIO;
-import org.opencv.core.Mat;
-import org.opencv.core.MatOfByte;
-import org.opencv.core.Size;
-import org.opencv.highgui.HighGui;
-import org.opencv.imgcodecs.Imgcodecs;
-import org.opencv.imgproc.Imgproc;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ImageUtils {
-
-  // Returns A AWT image
-  public static Mat loadImage(String path) {
-
-    Imgcodecs imgcodecs = new Imgcodecs();
-    Mat imageMatrix =  imgcodecs.imread(path);
-
-    return  imageMatrix;
-  }
 
   // Save an Image to file system
    public void saveImage(Image image, String path, String type) {
@@ -58,26 +42,6 @@ public class ImageUtils {
     }
 
     return Base64.getEncoder().encodeToString(outputStream.toByteArray());
-  }
-
-  public Image resize(Mat mat, int heigth, int width){
-    Mat dst = new Mat();
-    Imgproc.resize(mat, dst, new Size(width, heigth));
-    return matToImage(dst);
-  }
-
-
-  public Image matToImage(Mat mat){
-    return  HighGui.toBufferedImage(mat);
-  }
-
-  public Mat imageToMat(BufferedImage image, String imageType) throws  Exception{
-
-    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-    ImageIO.write(image, imageType, outputStream);
-    outputStream.flush();
-    return  Imgcodecs.imdecode(new MatOfByte(outputStream.toByteArray()),
-        Imgcodecs.CV_LOAD_IMAGE_UNCHANGED);
   }
 
 }
